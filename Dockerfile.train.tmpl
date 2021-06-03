@@ -2,8 +2,8 @@
 
 FROM tensorflow/tensorflow:1.15.4-gpu-py3
 ENV DEBIAN_FRONTEND=noninteractive \
-    DEEPSPEECH_REPO=#DEEPSPEECH_REPO# \
-    DEEPSPEECH_SHA=#DEEPSPEECH_SHA#
+    DEEPSPEECH_REPO=https://github.com/xjing97/DeepSpeech.git \
+    DEEPSPEECH_SHA=origin/master
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
@@ -29,8 +29,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
-RUN git clone $DEEPSPEECH_REPO DeepSpeech && \
-    cd /DeepSpeech && git fetch origin $DEEPSPEECH_SHA && git checkout $DEEPSPEECH_SHA && \
+RUN git clone https://github.com/xjing97/DeepSpeech.git DeepSpeech && \
+    cd /DeepSpeech && git fetch origin origin/master && git checkout origin/master && \
     git submodule sync kenlm/ && git submodule update --init kenlm/
 
 # Build CTC decoder first, to avoid clashes on incompatible versions upgrades

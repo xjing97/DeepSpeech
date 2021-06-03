@@ -4,7 +4,7 @@ FROM tensorflow/tensorflow:1.15.4-gpu-py3
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV DEEPSPEECH_REPO=https://github.com/xjing97/DeepSpeech.git
-ENV DEEPSPEECH_SHA=origin/test
+ENV DEEPSPEECH_SHA=origin/xj/deepspeech
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         apt-utils \
@@ -34,7 +34,7 @@ WORKDIR /
 RUN git clone https://github.com/xjing97/DeepSpeech.git DeepSpeech
 
 WORKDIR /DeepSpeech
-RUN git checkout origin/test
+RUN git checkout origin/xj/deepspeech
 
 # Build CTC decoder first, to avoid clashes on incompatible versions upgrades
 RUN cd native_client/ctcdecode && make NUM_PROCESSES=$(nproc) bindings
